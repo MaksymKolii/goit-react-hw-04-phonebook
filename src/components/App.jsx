@@ -30,7 +30,7 @@ export class App extends Component {
     }
   }
 
-  //! НУ делаем Публичным св-вом -(стрелочной ФУ!)
+  //! Не делаем Публичным св-вом -(стрелочной ФУ!)
   //* Делать только методом Класса !
   componentDidUpdate(_, prevState) {
     console.log('App componentDidUpdate');
