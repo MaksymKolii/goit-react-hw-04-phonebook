@@ -51,7 +51,7 @@ export function ContactForm({ addUser }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addUser(name, number);
+    addUser(...{ name, number });
 
     reset();
   };
