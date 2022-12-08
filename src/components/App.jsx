@@ -9,7 +9,7 @@ import { Section } from './Section/Section';
 
 // model.id = nanoid(); //=> "V1StGXR8_Z5jdHi6B-myT"
 
-export function  App () {
+export function App() {
   // state = {
   //   contacts: [
   //     // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -23,26 +23,26 @@ export function  App () {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState([]);
 
-  componentDidMount() {
-    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
-    console.log(parsedContacts);
-    if (parsedContacts) {
-      this.setState({
-        contacts: parsedContacts,
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+  //   console.log(parsedContacts);
+  //   if (parsedContacts) {
+  //     this.setState({
+  //       contacts: parsedContacts,
+  //     });
+  //   }
+  // }
 
   //! Не делаем Публичным св-вом -(стрелочной ФУ!)
   //* Делать только методом Класса !
-  componentDidUpdate(_, prevState) {
-    console.log('App componentDidUpdate');
+  // componentDidUpdate(_, prevState) {
+  //   console.log('App componentDidUpdate');
 
-    if (this.state.contacts !== prevState.contacts) {
-      console.log('Обновилось поле Contacts');
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
+  //   if (this.state.contacts !== prevState.contacts) {
+  //     console.log('Обновилось поле Contacts');
+  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  //   }
+  // }
 
   // addContact = data => {
   //   const newContact = {
@@ -63,12 +63,12 @@ export function  App () {
   //         contacts: [newContact, ...prevState.contacts],
   //       }));
   // };
- const addContact = data => {
+  const addContact = data => {
     const newContact = {
       id: nanoid(),
       ...data,
     };
-    const isNameExist =contacts.find(({ name, number }) => {
+    const isNameExist = contacts.find(({ name, number }) => {
       // name.toLowerCase() === newContact.name.toLowerCase();
       return (
         name.toLowerCase() === newContact.name.toLowerCase() ||
@@ -78,9 +78,7 @@ export function  App () {
 
     isNameExist
       ? window.alert(`${newContact.name} is alredy in contacts!`)
-      : this.setState(prevState => ({
-          contacts: [newContact, ...prevState.contacts],
-        }));
+      : setContacts(prevContacts => [newContact, ...prevContacts]);
   };
 
   // deleteContact = iD => {
@@ -89,10 +87,8 @@ export function  App () {
   //   }));
   // };
   const deleteContact = iD => {
-    setContacts(prevContacts => prevContacts.filter(({id}) => id !== iD))
-
+    setContacts(prevContacts => prevContacts.filter(({ id }) => id !== iD));
   };
-
 
   // onFilterChange = ({ target: { name, value } }) => {
   //   this.setState({
@@ -105,51 +101,59 @@ export function  App () {
 
     switch (name) {
       case 'name':
-        setName(value);
+        setFilter.name(value);
         break;
       case 'number':
-        setNumber(value);
+        setFilter.number(value);
         break;
       default:
         return;
     }
   };
 
-  getFilteredContacts = () => {
-    const { filter, contacts } = this.state;
+  // getFilteredContacts = () => {
+  //   const { filter, contacts } = this.state;
+
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase())
+  //   );
+  // };
+  const getFilteredContacts = () => {
+    // const { filter, contacts } = this.state;
 
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
-
-  showContactsOptions = () => {
-    const { filter, contacts } = this.state;
-    return filter ? this.getFilteredContacts() : contacts;
+  // showContactsOptions = () => {
+  //   const { filter, contacts } = this.state;
+  //   return filter ? getFilteredContacts() : contacts;
+  // };
+  const showContactsOptions = () => {
+    // const { filter, contacts } = this.state;
+    return filter ? getFilteredContacts() : contacts;
   };
+  // console.log('Render component');
+  // const { filter } = this.state;
 
-    // console.log('Render component');
-    // const { filter } = this.state;
+  // const options = filter ? this.getFilteredContacts() : contacts;
+  const options = showContactsOptions();
+  return (
+    <>
+      <Section>
+        <h1>Phonebook</h1>
+        <ContactForm addUser={addContact}></ContactForm>
+      </Section>
+      <Section>
+        <h2>Contacts</h2>
+        <Filter filtered={filter} filterChange={onFilterChange}></Filter>
+        <ContactList
+          options={options}
+          onClickDelete={deleteContact}
+        ></ContactList>
+      </Section>
 
-    // const options = filter ? this.getFilteredContacts() : contacts;
-    const options = this.showContactsOptions();
-    return (
-      <>
-        <Section>
-          <h1>Phonebook</h1>
-          <ContactForm addUser={addContact}></ContactForm>
-        </Section>
-        <Section>
-          <h2>Contacts</h2>
-          <Filter filtered={filter} filterChange={onFilterChange}></Filter>
-          <ContactList
-            options={options}
-            onClickDelete={deleteContact}
-          ></ContactList>
-        </Section>
-
-        <GlobalStyle />
-      </>
-    );
-  
+      <GlobalStyle />
+    </>
+  );
 }
