@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GlobalStyle } from './Utils/GlobalStyle';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
@@ -22,6 +22,13 @@ export function App() {
 
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState([]);
+
+  useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+  useEffect(() => {
+    window.localStorage.setItem('filter', JSON.stringify(filter));
+  }, [filter]);
 
   // componentDidMount() {
   //   const parsedContacts = JSON.parse(localStorage.getItem('contacts'));

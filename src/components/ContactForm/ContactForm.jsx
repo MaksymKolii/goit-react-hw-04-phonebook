@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 export function ContactForm({ addUser }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contactFormObj = { name, number };
 
   // state = {
   //   name: '',
@@ -51,7 +52,7 @@ export function ContactForm({ addUser }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addUser(...{ name, number });
+    addUser(...{ contactFormObj });
 
     reset();
   };
