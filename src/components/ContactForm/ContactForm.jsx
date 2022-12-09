@@ -52,7 +52,8 @@ export function ContactForm({ addUser }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addUser(...{ contactFormObj });
+    addUser(contactFormObj);
+    // addUser(name, number);
 
     reset();
   };

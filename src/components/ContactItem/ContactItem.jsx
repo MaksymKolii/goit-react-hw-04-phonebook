@@ -23,9 +23,9 @@ export const ContactItem = ({ id, name, number, onClickDelete }) => {
   );
 };
 
-ContactItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  onClickDelete: PropTypes.func.isRequired,
-};
+// ContactItem.propTypes = {
+//   id: PropTypes.string.isRequired,
+//   name: PropTypes.string.isRequired,
+//   number: PropTypes.string.isRequired,
+//   onClickDelete: PropTypes.func.isRequired,
+// };
