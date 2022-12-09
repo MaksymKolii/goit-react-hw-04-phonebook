@@ -12,9 +12,6 @@ export const ContactItem = ({ id, name, number, onClickDelete }) => {
       <P>
         Number:<Span>{number}</Span>
       </P>
-      {/* <Button className="" type="button" onClick={onClickDelete}>
-        Delete
-      </Button> */}
 
       <IconButton onClick={onClickDelete} aria-label="Удалить контакт">
         <DeleteIcon width={20} height={20}></DeleteIcon>
@@ -23,9 +20,9 @@ export const ContactItem = ({ id, name, number, onClickDelete }) => {
   );
 };
 
-// ContactItem.propTypes = {
-//   id: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-//   number: PropTypes.string.isRequired,
-//   onClickDelete: PropTypes.func.isRequired,
-// };
+ContactItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  onClickDelete: PropTypes.func.isRequired,
+};

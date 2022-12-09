@@ -19,91 +19,44 @@ export function App() {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const addContact = (name, number) => {
-    // if (
-    //   contacts.find(
-    //     contact => contact.name === name || contact.number === number
-    //   )
-    // ) {
-    //   alert(`${name} is already in contacts.`);
-    //   return;
-    // }
-    // const newContact = {
-    //   id: nanoid(),
-    //   name,
-    //   number,
-    //   // ...data,
-    // };
-
-    // setContacts(prevContacts => [newContact, ...prevContacts]);
-
+  // *const addContact = (name, number) => {
+  const addContact = data => {
     const newContact = {
       id: nanoid(),
-      name,
-      number,
-      // ...data,
+      //* name,
+      //* number,
+      ...data,
     };
-    if (
-      contacts.find(
-        ({ name, number }) =>
-          // name.toLowerCase() === newContact.name.toLowerCase();
-          name === newContact.name || number === newContact.number
-      )
-    ) {
-      return window.alert(`${newContact.name} is alredy in contacts!`);
-    }
-    setContacts(prevContacts => [newContact, ...prevContacts]);
 
-    // isNameExist
-    //   ? window.alert(`${newContact.name} is alredy in contacts!`)
-    //   : setContacts(prevContacts => [newContact, ...prevContacts]);
+    const isNameExist = contacts.find(({ name, number }) => {
+      return (
+        name.toLowerCase() === newContact.name.toLowerCase() ||
+        number === newContact.number
+      );
+    });
+
+    isNameExist
+      ? window.alert(`${newContact.name} is alredy in contacts!`)
+      : setContacts(prevS => [newContact, ...prevS]);
   };
 
-  // deleteContact = iD => {
-  //   this.setState(prevState => ({
-  //     contacts: prevState.contacts.filter(contact => contact.id !== iD),
-  //   }));
-  // };
   const deleteContact = iD => {
     setContacts(prevContacts => prevContacts.filter(({ id }) => id !== iD));
   };
-
-  // onFilterChange = ({ target: { name, value } }) => {
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // };
 
   const onFilterChange = ev => {
     setFilter(ev.target.value);
   };
 
-  // getFilteredContacts = () => {
-  //   const { filter, contacts } = this.state;
-
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase())
-  //   );
-  // };
-  const getFilteredContacts = () => {
-    // const { filter, contacts } = this.state;
-
-    return contacts.filter(contact =>
+  const getFilteredContacts = () =>
+    contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
-  };
-  // showContactsOptions = () => {
-  //   const { filter, contacts } = this.state;
-  //   return filter ? getFilteredContacts() : contacts;
-  // };
+
   const showContactsOptions = () => {
-    // const { filter, contacts } = this.state;
     return filter ? getFilteredContacts() : contacts;
   };
-  // console.log('Render component');
-  // const { filter } = this.state;
 
-  // const options = filter ? this.getFilteredContacts() : contacts;
   const options = showContactsOptions();
   return (
     <>
