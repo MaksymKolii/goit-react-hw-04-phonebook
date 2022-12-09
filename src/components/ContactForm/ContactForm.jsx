@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 export function ContactForm({ addUser }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  //* const contactFormObj = { name, number };
+  const contactFormObj = { name, number };
 
   const handleChange = ev => {
     const { name, value } = ev.target;
@@ -30,8 +30,8 @@ export function ContactForm({ addUser }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    //* addUser(contactFormObj);
-    addUser(name, number);
+    addUser(contactFormObj);
+    //* addUser(name, number);
     reset();
   };
 

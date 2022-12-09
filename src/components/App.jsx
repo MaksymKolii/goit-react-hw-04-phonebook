@@ -29,10 +29,7 @@ export function App() {
     };
 
     const isNameExist = contacts.find(({ name, number }) => {
-      return (
-        name.toLowerCase() === newContact.name.toLowerCase() ||
-        number === newContact.number
-      );
+      return name === newContact.name || number === newContact.number;
     });
 
     isNameExist

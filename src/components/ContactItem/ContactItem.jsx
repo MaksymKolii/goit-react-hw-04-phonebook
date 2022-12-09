@@ -22,7 +22,7 @@ export const ContactItem = ({ id, name, number, onClickDelete }) => {
 
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  number: PropTypes.string,
   onClickDelete: PropTypes.func.isRequired,
 };
