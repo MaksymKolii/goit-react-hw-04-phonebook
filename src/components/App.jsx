@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
+import { useLocalStorage } from './Hooks/useLocalStorage';
 import { GlobalStyle } from './Utils/GlobalStyle';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
@@ -7,17 +8,21 @@ import { Filter } from './Filter/Filter';
 
 import { Section } from './Section/Section';
 
-// model.id = nanoid(); //=> "V1StGXR8_Z5jdHi6B-myT"
-
 export function App() {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
-  });
-  const [filter, setFilter] = useState('');
+  const [contacts, setContacts] = useLocalStorage('contacts', []);
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  //* использ. наш кастомн. Хук, тут нам не обязательно записывать слово для фильтра в локСтор. Проще оставить  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useLocalStorage('filter', '');
+
+  // const [contacts, setContacts] = useState(() => {
+  //   return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
+  // });
+
+  // const [filter, setFilter] = useState('');
+
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   // *const addContact = (name, number) => {
   const addContact = data => {
