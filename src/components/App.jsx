@@ -7,22 +7,12 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
 import { Section } from './Section/Section';
+import { useState } from 'react';
 
 export function App() {
   const [contacts, setContacts] = useLocalStorage('contacts', []);
 
-  //* использ. наш кастомн. Хук, тут нам не обязательно записывать слово для фильтра в локСтор. Проще оставить  const [filter, setFilter] = useState('');
-  const [filter, setFilter] = useLocalStorage('filter', '');
-
-  // const [contacts, setContacts] = useState(() => {
-  //   return JSON.parse(window.localStorage.getItem('contacts')) ?? [];
-  // });
-
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(() => {
-  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
+  const [filter, setFilter] = useState('');
 
   // *const addContact = (name, number) => {
   const addContact = data => {
